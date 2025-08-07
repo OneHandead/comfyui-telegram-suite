@@ -164,7 +164,7 @@ class SendImage(SendGeneric):
         if len(images_bytes) == 1:
             # Single Image
             params[id] = f"attach://{id}"
-            file_name = f"{file_name or "image"}.{format.lower()}"
+            file_name = f"{file_name or 'image'}.{format.lower()}"
             message = bot(
                 "sendDocument" if send_as_file else "sendPhoto", 
                 params=params, 
@@ -178,7 +178,7 @@ class SendImage(SendGeneric):
                 media = []
                 files = {}
                 for i, b in enumerate(images_bytes):
-                    name = f"{file_name or "image"}{i}.{format.lower()}"
+                    name = f"{file_name or 'image'}{i}.{format.lower()}"
                     files[f"{id}{i}"] = (name, b, utils.guess_mimetype(name))
 
                     m = {
@@ -258,6 +258,9 @@ class SendVideo(SendGeneric):
 
         if send_as == "File":
             send_as = "Document"
+        
+        if send_as in ("Video", "Animation"):
+            params["has_spoiler"] = True
 
         id = send_as.lower()
 
@@ -304,7 +307,7 @@ class SendAudio(SendGeneric):
 
         wav_bytes = utils.audio_to_wav_bytes(audio)
 
-        name = f"{file_name or "audio"}.{format}"
+        name = f"{file_name or 'audio'}.{format}"
 
         if send_as == "File":
             params["document"] = "attach://document"
