@@ -1,3 +1,4 @@
+Fixed version for "Import failed" // Added Spoiler to (Video, Animation)
 # ComfyUI Telegram Suite
 
 **Implement Telegram into your ComfyUI workflows.**
